@@ -2,52 +2,38 @@ name: Send scheduled mail
 
 on:
   schedule:
-    - cron: "0 0 * * *"
-
-  workflow_dispatch:
-
+    - cron: "0 0 * * *"   # 每天北京时间 08:00
+  workflow_dispatch:      # 手动测试
 
 permissions:
   contents: read
 
-
 jobs:
   send-mail:
-
     runs-on: ubuntu-latest
 
     steps:
-
       - name: Send email
-
         uses: dawidd6/action-send-mail@v3
 
         with:
-
           server_address: ${{ secrets.MAIL_SERVER }}
-
           server_port: ${{ secrets.MAIL_PORT }}
-
           secure: ${{ secrets.MAIL_SECURE }}
 
           username: ${{ secrets.MAIL_USERNAME }}
-
           password: ${{ secrets.MAIL_PASSWORD }}
 
           from: ${{ secrets.MAIL_FROM }}
-
           to: ${{ secrets.MAIL_TO }}
 
           subject: ${{ secrets.MAIL_SUBJECT }}
 
           body: |
-            GitHub Actions 自动邮件
+            GitHub Actions 自动邮件测试
 
             Repository:
             ${{ github.repository }}
 
-            Workflow:
-            ${{ github.workflow }}
-
-            Run ID:
+            Run:
             ${{ github.run_id }}
